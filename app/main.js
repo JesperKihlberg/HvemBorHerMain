@@ -124,11 +124,11 @@ function getAdgangsAdresseSuccess(data) {
 }
 
 function retrieveTinglysningAdresser() {
-    var url = "http://www.tinglysning.dk/rest/soeg/" + adgangsAdresseData.vejstykke.navn
+    var url = "http://www.tinglysning.dk/rest/soeg/" + adgangsAdresseData.vejstykke.navn + " "
         + adgangsAdresseData.husnr + " "
         + adgangsAdresseData.postnummer.nr + " "
-        + adgangsAdresseData.postnummer.navn ;
-//    + " " + adgangsAdresseData.moltkesvej%2032%202000%20frederiksberg
+        + adgangsAdresseData.postnummer.navn;
+    //    + " " + adgangsAdresseData.moltkesvej%2032%202000%20frederiksberg
     $.ajax({
         url: url,
         async: true,
@@ -145,16 +145,40 @@ function retrieveTinglysningAdresser() {
 }
 
 function getTinglysningAdresserSuccess(data) {
-    document.getElementById('personer').innerHTML = data;
+    var adresser = data.items;
+
+    for (var i = 0; i < adresser.length; i++) {
+        var adresse = adresser[i];
+        var bog;
+        if (adresse.bog == "Tingbog") {
+            bog = "ejendomme";
+        }
+        if (adresse.bog == "Andelsboligbog") {
+            bog = "andelsbolig";
+        }
+        // https://www.tinglysning.dk/m/#/ejendomme/efc6c23a-e426-4eb0-9586-081a82f507f1
+        // https://www.tinglysning.dk/m/#/ejendom/efc6c23a-e426-4eb0-9586-081a82f507f1
+        //        https://www.tinglysning.dk/m/#/andelsbolig/60465dca-fd93-4139-bc30-b56db12f670a
+        var url = "https://www.tinglysning.dk/m/#/" + bog + "/" + adresse.uuid;
+        document.getElementById('personer').innerHTML += "<a href='" + url + "'>" + adresse.adresse + "</a> </br>";
+    }
+    document.getElementById('personer').innerHTML += JSON.stringify(data, null, 2);
 
 }
 
 function updateAdgangsAdresseHtml() {
+    var dgsLink = "<a href='http://www.degulesider.dk/person/resultat/"
+        + adgangsAdresseData.vejstykke.navn + "+"
+        + adgangsAdresseData.husnr + "+"
+        + adgangsAdresseData.postnummer.nr + "'>dgs</a></br>";
     document.getElementById('adgangsadresse').innerHTML = "<h1>"
         + adgangsAdresseData.vejstykke.navn + " "
         + adgangsAdresseData.husnr + ", "
         + adgangsAdresseData.postnummer.nr + " "
-        + adgangsAdresseData.postnummer.navn + "</h1>";
+        + adgangsAdresseData.postnummer.navn + "</h1>"+dgsLink;
+    //http://www.degulesider.dk/person/resultat/moltkesvej+34+2000
+    //document.getElementById('adgangsadresse').innerHTML += dgsLink;
+
 }
 
 function retrieveAdresser() {
@@ -194,7 +218,7 @@ function updateAdresseHtml() {
             adresseArray[adresseData[i].etage].push(adresseData[i]);
         }
         for (var j = 0; j <= 40; j++) {
-            var key = ""+j;
+            var key = "" + j;
             if (j == 0)
                 key = 'st';
             var indexAddArr = adresseArray[key];
@@ -202,7 +226,7 @@ function updateAdresseHtml() {
                 var disseAdresser = adresseArray[key];
                 document.getElementById('adresser').innerHTML += key + ": ";
                 for (var k = 0; k < disseAdresser.length; k++) {
-                    document.getElementById('adresser').innerHTML += " "+ disseAdresser[k].dør;
+                    document.getElementById('adresser').innerHTML += " " + disseAdresser[k].dør;
                 }
                 document.getElementById('adresser').innerHTML += "</br>";
             }
