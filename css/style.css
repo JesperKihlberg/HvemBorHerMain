@@ -1,0 +1,10 @@
+﻿
+html, body, #map {
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+}
+
+h1 {
+    font-size: 1.5em;
+}
