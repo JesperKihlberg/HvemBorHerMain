@@ -8,6 +8,7 @@ var coords;
 var adgangsAdresseData;
 var adresseData;
 var dgspage;
+var allAddressPersons = [];
 
 function initmap() {
     // set up the map
@@ -249,8 +250,40 @@ function writeDgsNameData(inputName) {
     } else if (inputName.div != null && inputName.div.ul != null && inputName.div.ul.li != null) {
         addr = inputName.div.ul.li.reverse()[0].span[0].content;
     }
-    document.getElementById('person').innerHTML += "navn: " + name + " adresse: " + addr + "</br>";
+    var key = extractKey(addr);
+    if (key != "") {
+        var cell = document.getElementById(key);
+        if (cell != null) {
+            cell.innerHTML += "</br>navn: " + name;
+        } // + " adresse: " + addr + "</br>";
+        else {
+            document.getElementById('person').innerHTML += "</br>navn: " + name + " adresse: " + addr  + " " + key;
+        }
+    }
+    else {
+        //var cell = document.getElementById('000000');
+        //if (cell != null) {
+        //    cell.innerHTML += "</br>navn: " + name;
+        //} // + " adresse: " + addr + "</br>";
+        //else {
+            document.getElementById('person').innerHTML += "</br>navn: " + name + " adresse: " + addr + " " + key;
+        //}
+        //document.getElementById('person').innerHTML += "</br>navn: " + name + " adresse: " + addr ;
+    }
+}
 
+function extractKey(addr) {
+    var targetAddr = adgangsAdresseData.vejstykke.navn + " "
+        + adgangsAdresseData.husnr;
+    var splitAddr = addr.replace(/(\r\n|\n|\r)/gm, "").split(',');
+    if (splitAddr[0].trim() == targetAddr.trim() && splitAddr[1] != null) {
+        var splitSideDoer = splitAddr[1].replace(/\s/g, '').split('.');
+        var key = keyifySideDoer(splitSideDoer[0], splitSideDoer[1]);
+        return key;
+    } else if (splitAddr[0].trim() == targetAddr.trim()) {
+        return "000000";
+    }
+    return "";
 }
 
 function getDGSPersonsSuccess(data) {
@@ -319,7 +352,7 @@ function updateAdresseHtml() {
             if (typeof indexAdd == 'undefined') {
                 adresseArray[adresseData[i].etage] = [];
             }
-            adresseArray[adresseData[i].etage][adresseData[i].dør]=adresseData[i];
+            adresseArray[adresseData[i].etage][adresseData[i].dør] = adresseData[i];
         }
         var doerTyper = [];
         for (var j = 40; j >= 0; j--) {
@@ -329,7 +362,7 @@ function updateAdresseHtml() {
             var indexEtageArr = adresseArray[key];
             if (typeof indexEtageArr != 'undefined') {
                 var etageAdresser = adresseArray[key];
-                for (var etageAdresse in  etageAdresser) {
+                for (var etageAdresse in etageAdresser) {
                     if (doerTyper.indexOf(etageAdresse) < 0) {
                         doerTyper.push(etageAdresse);
                     }
@@ -435,7 +468,7 @@ function keyifySideDoer(etage, doer) {
     } else {
         key = etage[0] + etage[1];
     }
-    if (doer == null) {
+    if (doer == null || doer == "") {
         key += "0000";
     } else if (doer.length == 1) {
         key += "000" + doer;
