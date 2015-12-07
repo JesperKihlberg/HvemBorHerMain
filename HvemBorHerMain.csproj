@@ -66,6 +66,10 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\adgangsAdresse.js" />
+    <Content Include="app\adresseInfo.js" />
+    <Content Include="app\dgs.js" />
+    <Content Include="app\tinglysning.js" />
     <Content Include="packages.config" />
     <Content Include="Scripts\jquery-2.1.4.min.map" />
     <None Include="Web.Debug.config">

@@ -2,7 +2,7 @@
 <html>
 <head>
     <title></title>
-	<meta charset="utf-8" />
+    <meta charset="utf-8" />
 
     <script src="/Scripts/leaflet-0.7.3.min.js"></script>
     <script src="Scripts/jquery-2.1.4.min.js"></script>
@@ -11,10 +11,16 @@
 </head>
 <body>
     <div id="map"></div>
-<div class="content"></div>
-<script src="app/main.js"></script>
-<script language="javascript">
-    initmap();
-</script>
+    <div id="content" class="content">
+        <div style="width:100px;overflow:auto;">
+            <div id='adgangsadresse'></div>
+        </div>
+    </div>
+    <script src="app/main.js"></script>
+    <script src="app/tinglysning.js"></script>
+    <script src="app/dgs.js"></script>
+    <script language="javascript">
+        initmap();
+    </script>
 </body>
 </html>

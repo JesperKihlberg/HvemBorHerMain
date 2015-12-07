@@ -7,7 +7,13 @@ html, body, #map {
 
 h1 {
     font-size: 1.5em;
+    margin: 1px;
 }
+
+h2, h3 {
+    margin: 1px;
+}
+
 div.content {
     background-color: white;
     display: block;
@@ -19,4 +25,31 @@ div.content {
     top: 10px;
     right: 10px;
     text-align: center;
+    font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+    overflow: auto;
+}
+
+div#adresser {
+    overflow: auto;
+    width: 100%;
+}
+
+table.buildingTable {
+    text-align: left;
+    width: 100%;
+}
+
+    table.buildingTable tr td {
+        vertical-align: top;
+        height: 30px;
+        line-height: 1;
+    }
+
+    table.buildingTable td:hover {
+        background-color: aqua;
+        cursor: pointer;
+    }
+
+span.adressElement {
+    font-size: smaller;
 }
