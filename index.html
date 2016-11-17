@@ -8,13 +8,20 @@
     <script src="Scripts/jquery-2.1.4.min.js"></script>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <link href="css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
     <div id="map"></div>
     <div id="content" class="content">
-        <div style="width:100px;overflow:auto;">
-            <div id='adgangsadresse'></div>
+        <div id='adgangsadresse'>
+            <form id="searchForm">
+                <input type="text" id="searchInput" value="Søg efter person-, firmanavn eller adresse.. " />
+            </form>
         </div>
+        <div id='adresser'></div>
+        <div id="ejendom"></div>
+        <div id='personer'></div>
+        <div id='person'></div>
     </div>
     <script src="app/main.js"></script>
     <script src="app/tinglysning.js"></script>

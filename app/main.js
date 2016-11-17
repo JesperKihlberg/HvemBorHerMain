@@ -1,8 +1,5 @@
 ﻿//var kmsticket = new VisStedet.Ticket(); 
 var map;
-var ajaxRequest;
-var plotlist;
-var plotlayers = [];
 var marker;
 var coords;
 var adgangsAdresseData;
@@ -91,8 +88,12 @@ function onMapClick(e) {
 }
 
 function onPopupOpen() {
-    var divs = "<div id='adgangsadresse'></div><div id='adresser'></div><div id='personer'></div><div id='person'>";
-    document.getElementById('content').innerHTML = divs;
+    document.getElementById('adresser').innerHTML = "";;
+    document.getElementById('ejendom').innerHTML = "";;
+    document.getElementById('person').innerHTML = "";
+    document.getElementById('personer').innerHTML = "";
+    //var divs = "<div id='adgangsadresse'></div><div id='adresser'></div><div id='personer'></div><div id='person'>";
+    //document.getElementById('content').innerHTML = divs;
     if (typeof coords !== 'undefined') {
         retrieveAdgangsAdresse();
     }
@@ -217,6 +218,7 @@ function addAdressElements(td) {
 }
 
 function updateAdresseHtml() {
+    document.getElementById('adresser').innerHTML = "";;
     var insertDiv = document.getElementById('adresser');// = "adresser: " + adresseData.length + "</br>";
     var tbl = document.createElement('table');
     tbl.className = "buildingTable";
